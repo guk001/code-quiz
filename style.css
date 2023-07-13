@@ -19,7 +19,16 @@ header{
 
 h1{
     margin:0;
-    font-size: 26px;
+    font-size: 30px;
+    text-align: center;
+}
+
+h2{
+    font-size: 24px;
+    font-weight: bolder;
+    text-align: center;
+    border: 20px;
+    text-align: center;
 }
 
 main{
@@ -47,6 +56,7 @@ main{
     padding:10px;
     margin-bottom: 10px;
     background-color: purple;
+    color: white;
     border: none;
     text-align: center;
     cursor: pointer;
@@ -60,4 +70,41 @@ footer{
 footer p{
     margin:0;
     font-size: 14px;
+}
+
+#start-button {
+    color: white;
+    background-color: purple;
+    text-align: center;
+    position: static;
+}
+
+#result-text{
+    margin-top:0;
+    margin-bottom: 20px;
+}
+#score-form {
+    margin-top:20px;
+
+}
+#score-form label{
+    display: block;
+    margin-bottom: 5px;
+}
+
+#score-form input[type="text"] {
+    width:  100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+#score-form button[type="submit"]{
+    padding: 10px 20px;
+    background-color: white;
+    color: black;
+    border: none;
+    cursor: pointer;
+}
+
+#timer{
+    font-weight:bold;
 }
