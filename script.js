@@ -57,6 +57,7 @@ const questionE1 = document.getElementById("question");
 const optionsE1 = document.getElementById("options");
 const resultTextE1 = document.getElementById("result-text");
 const initialsInput = document.getElementById("initials");
+const scoreForm = document.getElementById("score-form");
 const startScreen = document.getElementById("start-screen");
 const quizScreen = document.getElementById("quiz-screen");
 const resultScreen = document.getElementById("result-screen");
@@ -64,6 +65,17 @@ const resultScreen = document.getElementById("result-screen");
 let currentQuestionIndex = 0;
 let timeLeft = 60;
 let timerInterval;
+
+startBtn.addEventListener("click",startQuiz);
+optionsE1.addEventListener("click",handleAnswer);
+scoreForm.addEventListener("submit",saveScore);
+
+function startQuiz() {
+    startScreen.classList.add("hidden");
+    quizScreen.classList.remove("hidden");
+    startTimer();
+    showQuestion();
+} 
 
 function startTimer() {
     timerInterval = setInterval(function(){
@@ -80,25 +92,23 @@ function startTimer() {
 function showQuestion() {
     const question = quizQuestions[currentQuestionIndex];
     questionE1.textContent = question.question;
+
     optionsE1.innerHTML = '';
     question.options.forEach(function(option,index){
         const li =document.createElement('li');
         const btn = document.createElement('button');
+        btn.textContent =option.substring(3);
+        btn.setAttribute('data-index',index);
         btn.classList.add('option');
         li.appendChild(btn);
         optionsE1.appendChild(li);
     });
 }
 
-function startQuiz() {
-    startScreen.classList.add("hidden");
-    quizScreen.classList.remove("hidden");
-    startTimer();
-    showQuestion();
-}
 
 function handleAnswer(event) {
     if (!event.target.matches('button.option')) return;
+    
     const selectedOptionIndex = parseInt(event.target.getAttribute('data-index'));
     const question = quizQuestions[currentQuestionIndex];
 
@@ -111,10 +121,12 @@ function handleAnswer(event) {
         timerE1.textContent =timeLeft;
     }
 
+    
     resultScreen.classList.remove('hidden');
     quizScreen.classList.add("hidden");
     
     currentQuestionIndex++;
+
     if (currentQuestionIndex < questions.length) {
         setTimeout(function(){
             resultScreen.classList.add("hidden");
@@ -130,7 +142,7 @@ function endQuiz(){
     clearInterval(timerInterval);
     quizScreen.classList.add("hidden");
     resultScreen.classList.remove("hidden");
-    resultTextE1.textContent = "Your final score is ${timeLeft}.";
+    resultTextE1.textContent = "Your final score is "+ timeLeft;
 }
 
 function saveScore(event) {
@@ -142,7 +154,5 @@ function saveScore(event) {
     }
 }
 
-startBtn.addEventListener("click",startQuiz);
-optionsE1.addEventListener("click",handleAnswer);
-scoreForm.addEventListener("submit",saveScore);
+
 
